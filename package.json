@@ -1,9 +1,9 @@
 {
-	"name": "bridge-bot",
+	"name": "minecraft-chat-generator",
 	"version": "1.0.0",
 	"main": "dist",
 	"license": "MIT",
-	"private": false,
+	"private": true,
 	"scripts": {
 		"build": "tsc && npm run copy-files",
 		"clean": "rm -r dist/",
@@ -14,7 +14,9 @@
 		"lint:fix": "npm run lint --fix",
 		"start": "node ."
 	},
-	"dependencies": {},
+	"dependencies": {
+		"canvas": "^2.9.3"
+	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.30.6",
 		"@typescript-eslint/parser": "^5.30.6",
