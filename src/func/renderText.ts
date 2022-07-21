@@ -4,13 +4,12 @@ import { fontSize } from "..";
 
 export default function renderText(text: string, ctx: CanvasRenderingContext2D) {
 	let cursorX = 0;
-	let cursorY = 8;
+	let cursorY = fontSize - fontSize / 8;
 	let nextCharIsFormatter = false;
 	let currentColor = 0xfff;
 	let isBold = false;
 
 	for (const char of text) {
-		console.log(currentColor, nextCharIsFormatter);
 		if (char === "&") {
 			nextCharIsFormatter = true;
 		} else if (nextCharIsFormatter) {
@@ -45,7 +44,7 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 
 			// TODO: draw boldened text
 			if (isBold) {
-				ctx.fillText(char, shadowX + 2, shadowY);
+				ctx.fillText(char, shadowX + fontSize / 8, shadowY);
 			}
 
 			// TODO: draw normal text
@@ -53,12 +52,12 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 			ctx.fillText(char, cursorX, cursorY + charYOffset);
 
 			if (isBold) {
-				ctx.fillText(char, cursorX + 2, cursorY + charYOffset);
+				ctx.fillText(char, cursorX + fontSize / 8, cursorY + charYOffset);
 			}
 
 			let width = ctx.measureText(char).width;
 			if (isBold) {
-				width += 2;
+				width += fontSize / 8;
 			}
 
 			cursorX += width;

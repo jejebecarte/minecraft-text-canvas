@@ -1,4 +1,5 @@
 import { CanvasRenderingContext2D } from "canvas";
+import { fontSize } from "..";
 
 export default function wrapText(text: string, ctx: CanvasRenderingContext2D) {
 	let newText = "";
@@ -17,7 +18,7 @@ export default function wrapText(text: string, ctx: CanvasRenderingContext2D) {
 		} else {
 			let width = ctx.measureText(char).width;
 			if (isBold) {
-				width += 2;
+				width += fontSize / 8;
 			}
 
 			cursor += width;
