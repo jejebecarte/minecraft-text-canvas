@@ -1,18 +1,20 @@
 import { createCanvas, registerFont } from "canvas";
 import getFormattedWidth from "./func/getFormattedWidth";
+import renderText from "./func/renderText";
 import saveImage from "./util/saveImage";
 import wrapText from "./func/wrapText";
 
 registerFont("src/fonts/font.otf", { family: "Minecraft" });
 
 // Set variables
-const message = "This is the default message";
+export const fontSize = 8;
+const font = `${fontSize}px Minecraft`;
+const message = "This &dis the default message";
 const canvas = createCanvas(0, 0);
 const ctx = canvas.getContext("2d");
-const fontSize = 8;
 
-// Add font for the first time. The font will be reset later to adjust for changes in the canvas size, for now it's to calculate dimensions
-ctx.font = `${fontSize}px Minecraft`;
+// Add font for the first time - it will be reset later to adjust for changes in the canvas size. For now it's to calculate text dimensions
+ctx.font = font;
 
 // Wrap and strip the text of modifiers before finding it's height width
 const wrappedText = wrapText(message, ctx);
@@ -25,9 +27,9 @@ const width = getFormattedWidth(unformattedText, ctx);
 canvas.height = height + fontSize / 8;
 canvas.width = width + fontSize / 8;
 
-ctx.textBaseline = "bottom";
-ctx.font = `${fontSize}px Minecraft`;
-ctx.fillText(message, 0, 0);
+// Reset font and render text
+ctx.font = font;
+renderText(message, ctx);
 
 // At last, save the final image
 saveImage(canvas);

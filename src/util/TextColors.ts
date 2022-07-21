@@ -1,0 +1,20 @@
+const TextColors: { [key: string]: number } = {
+	"0": 0x000,
+	"1": 0x00A,
+	"2": 0x0A0,
+	"3": 0x0AA,
+	"4": 0xA00,
+	"5": 0xA0A,
+	"6": 0xFA0,
+	"7": 0xAAA,
+	"8": 0x555,
+	"9": 0x55F,
+	a: 0x5F5,
+	b: 0x5FF,
+	c: 0xF55,
+	d: 0xF5F,
+	e: 0xFF5,
+	f: 0xFFF,
+} as const;
+
+export default TextColors;
