@@ -1,5 +1,5 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { fontSize } from "..";
+import { fontOffset } from "..";
 import getFormattedWidth from "./getFormattedWidth";
 import wrapText from "./wrapText";
 
@@ -12,6 +12,6 @@ export default function setCanvasDimensions(text: string, ctx: CanvasRenderingCo
 	const width = getFormattedWidth(unformattedText, ctx);
 
 	// Set canvas dimensions and reset font to adjust sizing
-	ctx.canvas.height = height + fontSize / 8;
-	ctx.canvas.width = width + fontSize / 8;
+	ctx.canvas.height = height + fontOffset;
+	ctx.canvas.width = width + fontOffset;
 }

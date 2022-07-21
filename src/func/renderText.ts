@@ -1,10 +1,10 @@
+import { fontOffset, fontSize } from "..";
 import { CanvasRenderingContext2D } from "canvas";
 import TextColors from "../util/TextColors";
-import { fontSize } from "..";
 
 export default function renderText(text: string, ctx: CanvasRenderingContext2D) {
 	let cursorX = 0;
-	let cursorY = fontSize - fontSize / 8;
+	let cursorY = fontSize - fontOffset;
 	let nextCharIsFormatter = false;
 	let currentColor = 0xfff;
 	let isBold = false;
@@ -35,8 +35,8 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 			}
 
 			const shadowColor = currentColor * 0.25;
-			const shadowX = cursorX + fontSize / 8;
-			const shadowY = cursorX + fontSize / 8 + charYOffset;
+			const shadowX = cursorX + fontOffset;
+			const shadowY = cursorX + fontOffset + charYOffset;
 
 			// TODO: draw shadow
 			ctx.fillStyle = `#${shadowColor.toString(16)}`;
@@ -44,7 +44,7 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 
 			// TODO: draw boldened text
 			if (isBold) {
-				ctx.fillText(char, shadowX + fontSize / 8, shadowY);
+				ctx.fillText(char, shadowX + fontOffset, shadowY);
 			}
 
 			// TODO: draw normal text
@@ -52,12 +52,12 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 			ctx.fillText(char, cursorX, cursorY + charYOffset);
 
 			if (isBold) {
-				ctx.fillText(char, cursorX + fontSize / 8, cursorY + charYOffset);
+				ctx.fillText(char, cursorX + fontOffset, cursorY + charYOffset);
 			}
 
 			let width = ctx.measureText(char).width;
 			if (isBold) {
-				width += fontSize / 8;
+				width += fontOffset;
 			}
 
 			cursorX += width;

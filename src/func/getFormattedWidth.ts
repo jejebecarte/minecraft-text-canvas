@@ -1,5 +1,5 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { fontSize } from "..";
+import { fontOffset } from "..";
 
 export default function getFormattedWidth(unformattedText: string, ctx: CanvasRenderingContext2D) {
 	let totalWidth = 0;
@@ -19,7 +19,7 @@ export default function getFormattedWidth(unformattedText: string, ctx: CanvasRe
 		} else {
 			let width = ctx.measureText(char).width;
 			if (isBold) {
-				width += fontSize / 8;
+				width += fontOffset;
 			}
 
 			cursor += width;

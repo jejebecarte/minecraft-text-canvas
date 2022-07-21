@@ -6,8 +6,8 @@ import setCanvasDimensions from "./func/setCanvasDimensions";
 registerFont("src/fonts/font.otf", { family: "Minecraft" });
 
 // Set variables
-// TODO: export font offset, not font size
 export const fontSize = 8;
+export const fontOffset = fontSize / 8;
 const font = `${fontSize}px Minecraft`;
 const text = "This &dis the defau&lalt message";
 const canvas = createCanvas(0, 0);
