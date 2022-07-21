@@ -1,6 +1,6 @@
 import { CanvasRenderingContext2D } from "canvas";
 
-export default function addNewLines(text: string, ctx: CanvasRenderingContext2D) {
+export default function wrapText(text: string, ctx: CanvasRenderingContext2D) {
 	let newText = "";
 	let isBold = false;
 	let cursor = 0;
