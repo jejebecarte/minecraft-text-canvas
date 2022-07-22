@@ -34,27 +34,25 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 				charYOffset = -2;
 			}
 
-			const shadowColor = currentColor * 0.25;
+			const shadowColor = Math.round((currentColor & 0xfefefe) >> 1);
 			const shadowX = cursorX + fontOffset;
-			const shadowY = cursorX + fontOffset + charYOffset;
+			const shadowY = cursorY + fontOffset + charYOffset;
 
-			// TODO: draw shadow
+			// Draw shadow
 			ctx.fillStyle = `#${shadowColor.toString(16)}`;
 			ctx.fillText(char, shadowX, shadowY);
-
-			// TODO: draw boldened text
 			if (isBold) {
 				ctx.fillText(char, shadowX + fontOffset, shadowY);
 			}
 
-			// TODO: draw normal text
+			// Draw text
 			ctx.fillStyle = `#${currentColor.toString(16)}`;
 			ctx.fillText(char, cursorX, cursorY + charYOffset);
-
 			if (isBold) {
 				ctx.fillText(char, cursorX + fontOffset, cursorY + charYOffset);
 			}
 
+			// Add extra space in between letters if character is bold
 			let width = ctx.measureText(char).width;
 			if (isBold) {
 				width += fontOffset;
