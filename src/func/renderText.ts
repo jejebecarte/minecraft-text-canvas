@@ -1,12 +1,14 @@
+import { TextColors, TextShadowColors } from "../util/TextColors";
 import { fontOffset, fontSize } from "..";
 import { CanvasRenderingContext2D } from "canvas";
-import TextColors from "../util/TextColors";
 
 export default function renderText(text: string, ctx: CanvasRenderingContext2D) {
 	let cursorX = 0;
 	let cursorY = fontSize - fontOffset;
 	let nextCharIsFormatter = false;
 	let currentColor = 0xfff;
+	let currentShadowColor = 0x404040;
+
 	let isBold = false;
 
 	for (const char of text) {
@@ -15,6 +17,7 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 		} else if (nextCharIsFormatter) {
 			if (char in TextColors) {
 				currentColor = TextColors[char] as number;
+				currentShadowColor = TextShadowColors[char] as number;
 			} else if (char === "r") {
 				currentColor = 0xfff;
 				isBold = false;
@@ -34,12 +37,11 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 				charYOffset = -2;
 			}
 
-			const shadowColor = Math.round((currentColor & 0xfefefe) >> 1);
 			const shadowX = cursorX + fontOffset;
 			const shadowY = cursorY + fontOffset + charYOffset;
 
 			// Draw shadow
-			ctx.fillStyle = `#${shadowColor.toString(16)}`;
+			ctx.fillStyle = `#${currentShadowColor.toString(16)}`;
 			ctx.fillText(char, shadowX, shadowY);
 			if (isBold) {
 				ctx.fillText(char, shadowX + fontOffset, shadowY);
