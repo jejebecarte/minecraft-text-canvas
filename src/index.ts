@@ -21,5 +21,5 @@ setCanvasDimensions(text, ctx);
 ctx.font = font;
 renderText(text, ctx);
 
-// At last, save the final image
+// Save the final image
 saveImage(canvas);
