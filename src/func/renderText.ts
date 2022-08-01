@@ -30,15 +30,8 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 			cursorX = 0;
 			cursorY = fontSize + Math.floor(fontSize / 4);
 		} else {
-			let charYOffset = 0;
-
-			// The font has weird positioning for these characters
-			if (char === "+" || char === "-") {
-				charYOffset = -2;
-			}
-
 			const shadowX = cursorX + fontOffset;
-			const shadowY = cursorY + fontOffset + charYOffset;
+			const shadowY = cursorY + fontOffset;
 
 			// Draw shadow
 			ctx.fillStyle = `#${currentShadowColor.toString(16)}`;
@@ -49,9 +42,9 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 
 			// Draw text
 			ctx.fillStyle = `#${currentColor.toString(16)}`;
-			ctx.fillText(char, cursorX, cursorY + charYOffset);
+			ctx.fillText(char, cursorX, cursorY);
 			if (isBold) {
-				ctx.fillText(char, cursorX + fontOffset, cursorY + charYOffset);
+				ctx.fillText(char, cursorX + fontOffset, cursorY);
 			}
 
 			// Add extra space in between letters if character is bold
