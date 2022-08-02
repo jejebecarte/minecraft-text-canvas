@@ -7,8 +7,8 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 	let cursorX = 0;
 	let cursorY = fontSize - fontOffset;
 	let nextCharIsFormatter = false;
-	let currentColor = 0xfff;
-	let currentShadowColor = 0x404040;
+	let currentColor = TextColors["f"];
+	let currentShadowColor = TextShadowColors["f"];
 
 	let isBold = false;
 
