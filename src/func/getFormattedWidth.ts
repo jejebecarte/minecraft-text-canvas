@@ -6,7 +6,7 @@ export default function getFormattedWidth(unformattedText: string, ctx: CanvasRe
 	let formattedWidth = 0;
 
 	// Add extra width for bold characters. The bold modifier continues over line breaks
-	const boldSubstrings = unformattedText.match(/&l(.*?)(?:&r|s$)/gms);
+	const boldSubstrings = unformattedText.match(/&l(.*?)(?:&r|$)/gs);
 	if (boldSubstrings) {
 		for (const substring of boldSubstrings) {
 			formattedWidth += substring.length * fontOffset;
