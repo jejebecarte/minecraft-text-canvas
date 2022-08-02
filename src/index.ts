@@ -9,7 +9,7 @@ registerFont("src/fonts/font.otf", { family: "Minecraft" });
 export const fontSize = 8;
 export const fontOffset = fontSize / 8;
 const font = `${fontSize}px Minecraft`;
-const text = "This &dis the defau&lalt message";
+const text = "This &dis the defau&llt message";
 const canvas = createCanvas(0, 0);
 const ctx = canvas.getContext("2d");
 

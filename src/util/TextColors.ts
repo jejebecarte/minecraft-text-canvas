@@ -1,4 +1,4 @@
-export const TextColors: { [key: string]: number } = {
+export const TextColors: { [key in HexDigit]: number } = {
 	"0": 0x000,
 	"1": 0x00a,
 	"2": 0x0a0,
@@ -17,7 +17,7 @@ export const TextColors: { [key: string]: number } = {
 	f: 0xfff,
 } as const;
 
-export const TextShadowColors: { [key: string]: number } = {
+export const TextShadowColors: { [key in HexDigit]: number } = {
 	"0": 0x000,
 	"1": 0x00002b,
 	"2": 0x002b00,
@@ -35,3 +35,5 @@ export const TextShadowColors: { [key: string]: number } = {
 	e: 0x404015,
 	f: 0x404040,
 } as const;
+
+type HexDigit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "a" | "b" | "c" | "d" | "e" | "f";

@@ -1,6 +1,7 @@
 import { TextColors, TextShadowColors } from "../util/TextColors";
 import { fontOffset, fontSize } from "..";
 import { CanvasRenderingContext2D } from "canvas";
+import isObjKey from "../util/isObjKey";
 
 export default function renderText(text: string, ctx: CanvasRenderingContext2D) {
 	let cursorX = 0;
@@ -15,11 +16,12 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 		if (char === "&") {
 			nextCharIsFormatter = true;
 		} else if (nextCharIsFormatter) {
-			if (char in TextColors) {
-				currentColor = TextColors[char] as number;
-				currentShadowColor = TextShadowColors[char] as number;
+			if (isObjKey(char, TextColors)) {
+				currentColor = TextColors[char];
+				currentShadowColor = TextShadowColors[char];
 			} else if (char === "r") {
-				currentColor = 0xfff;
+				currentColor = TextColors["f"];
+				currentShadowColor = TextShadowColors["f"];
 				isBold = false;
 			} else if (char === "l") {
 				isBold = true;
