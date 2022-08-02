@@ -17,8 +17,6 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 
 		// Check if this character and the next one are a supported formatter
 		if (char === "&" && getSupportedModifiers().test(char + nextChar)) {
-			let isModifier = true;
-
 			if (isObjKey(nextChar, TextColors)) {
 				currentColor = TextColors[nextChar];
 				currentShadowColor = TextShadowColors[nextChar];
@@ -29,13 +27,11 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 			} else if (nextChar === "l") {
 				isBold = true;
 			} else {
-				isModifier = false;
+				break;
 			}
 
-			// Skip the next character if it's modifying
-			if (isModifier) {
-				i += 1;
-			}
+			// Skip the next character as it is modifying
+			i += 1;
 		} else if (char === "\n") {
 			cursorX = 0;
 			cursorY = fontSize * 2 + fontOffset;
