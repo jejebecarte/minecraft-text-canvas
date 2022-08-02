@@ -1,34 +1,30 @@
 import { CanvasRenderingContext2D } from "canvas";
 import { fontOffset } from "..";
+import getSupportedModifiers from "../util/getSupportedModifiers";
 
 export default function getFormattedWidth(unformattedText: string, ctx: CanvasRenderingContext2D) {
-	let totalWidth = 0;
+	let formattedWidth = 0;
 
-	let cursor = 0;
-	let isBold = false;
-	let nextCharIsFormatter = false;
+	// Add extra width for bold characters. The bold modifier continues over line breaks
+	const boldSubstrings = unformattedText.match(/&l(.*?)(?:&r|$)/gs);
+	if (boldSubstrings) {
+		for (let substring of boldSubstrings) {
+			// Replace formatting strings left in the bold text to calculate extra width
+			substring = substring.replaceAll(getSupportedModifiers(), "");
 
-	for (const char of unformattedText) {
-		if (char === "&") {
-			nextCharIsFormatter = true;
-		} else if (nextCharIsFormatter) {
-			isBold = char === "l";
-			nextCharIsFormatter = false;
-		} else if (char === "\n") {
-			cursor = 0;
-		} else {
-			let width = ctx.measureText(char).width;
-			if (isBold) {
-				width += fontOffset;
-			}
-
-			cursor += width;
-
-			if (cursor > totalWidth) {
-				totalWidth = cursor;
-			}
+			formattedWidth += substring.length * fontOffset;
 		}
 	}
 
-	return totalWidth;
+	// Remove all modifiers and split by line break to calculate text width
+	const formattedTextArray = unformattedText.replaceAll(getSupportedModifiers(), "").split(/\r\n|\r|\n/g);
+	for (const substring of formattedTextArray) {
+		const substringWidth = ctx.measureText(substring).width;
+
+		if (formattedWidth < substringWidth) {
+			formattedWidth = substringWidth;
+		}
+	}
+
+	return formattedWidth;
 }
