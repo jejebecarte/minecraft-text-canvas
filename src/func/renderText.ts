@@ -1,33 +1,41 @@
 import { TextColors, TextShadowColors } from "../util/TextColors";
 import { fontOffset, fontSize } from "..";
 import { CanvasRenderingContext2D } from "canvas";
+import getSupportedModifiers from "../util/getSupportedModifiers";
 import isObjKey from "../util/isObjKey";
 
 export default function renderText(text: string, ctx: CanvasRenderingContext2D) {
 	let cursorX = 0;
 	let cursorY = fontSize - fontOffset;
-	let nextCharIsFormatter = false;
 	let currentColor = TextColors["f"];
 	let currentShadowColor = TextShadowColors["f"];
-
 	let isBold = false;
 
-	for (const char of text) {
-		if (char === "&") {
-			nextCharIsFormatter = true;
-		} else if (nextCharIsFormatter) {
-			if (isObjKey(char, TextColors)) {
-				currentColor = TextColors[char];
-				currentShadowColor = TextShadowColors[char];
-			} else if (char === "r") {
+	for (let i = 0; i < text.length; i++) {
+		const char = text[i] as string;
+		const nextChar = text[i + 1];
+
+		// Check if this character and the next one are a supported formatter
+		if (char === "&" && getSupportedModifiers().test(char + nextChar)) {
+			let isModifier = true;
+
+			if (isObjKey(nextChar, TextColors)) {
+				currentColor = TextColors[nextChar];
+				currentShadowColor = TextShadowColors[nextChar];
+			} else if (nextChar === "r") {
 				currentColor = TextColors["f"];
 				currentShadowColor = TextShadowColors["f"];
 				isBold = false;
-			} else if (char === "l") {
+			} else if (nextChar === "l") {
 				isBold = true;
+			} else {
+				isModifier = false;
 			}
 
-			nextCharIsFormatter = false;
+			// Skip the next character if it's modifying
+			if (isModifier) {
+				i += 1;
+			}
 		} else if (char === "\n") {
 			cursorX = 0;
 			cursorY = fontSize + Math.floor(fontSize / 4);
