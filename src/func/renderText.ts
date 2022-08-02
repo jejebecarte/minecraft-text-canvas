@@ -38,7 +38,7 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 			}
 		} else if (char === "\n") {
 			cursorX = 0;
-			cursorY = fontSize + Math.floor(fontSize / 4);
+			cursorY = fontSize * 2 + fontOffset;
 		} else {
 			const shadowX = cursorX + fontOffset;
 			const shadowY = cursorY + fontOffset;
