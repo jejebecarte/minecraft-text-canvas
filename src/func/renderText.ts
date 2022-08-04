@@ -27,7 +27,7 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 			} else if (nextChar === "l") {
 				isBold = true;
 			} else {
-				break;
+				continue;
 			}
 
 			// Skip the next character as it is modifying
