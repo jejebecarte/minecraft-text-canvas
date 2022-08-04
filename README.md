@@ -2,6 +2,29 @@
 
 This project is a simple TypeScript application to generate realistic Minecraft chat images from a given input text. The application follows basic Minecraft text markup, including coloured and bold text, and outputs the rendered result as a `.png` image.
 
+## Supported Modifiers
+
+| Name         | Character |
+| ------------ | --------- |
+| Dark Red     | &4        |
+| Red          | &c        |
+| Gold         | &6        |
+| Yellow       | &e        |
+| Dark Green   | &2        |
+| Green        | &a        |
+| Aqua         | &b        |
+| Dark Aqua    | &3        |
+| Dark Blue    | &1        |
+| Blue         | &9        |
+| Light Purple | &d        |
+| Dark Purple  | &5        |
+| White        | &f        |
+| Gray         | &7        |
+| Dark Gray    | &8        |
+| Black        | &0        |
+| Bold         | &l        |
+| Reset        | &r        |
+
 ## Acknowledgements
 
 This repository is based off the [hypixel-fake-chat](https://github.com/mat-1/hypixel-fake-chat) generator.
