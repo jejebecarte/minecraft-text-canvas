@@ -8,13 +8,13 @@
         ".": "./dist/index.js"
     },
     "scripts": {
-        "build": "tsc && npm run copy-files",
+        "build": "tsc && pnpm run copy-files",
         "clean": "rm -r dist/",
         "copy-files": "copyfiles -u 1 src/**/*.otf dist/",
         "dev": "ts-node-dev --respawn --transpile-only --poll src/index.ts",
         "format": "prettier --write \"src/**\"",
         "lint": "eslint \"src/**\"",
-        "lint:fix": "npm run lint --fix"
+        "lint:fix": "pnpm run lint --fix"
     },
     "homepage": "https://github.com/Jejebecarte/minecraft-text-canvas#readme",
     "repository": {
@@ -33,6 +33,7 @@
         "typescript": "^4.5.5"
     },
     "dependencies": {
-        "canvas": "^2.9.3"
+        "canvas": "^2.9.3",
+        "copyfiles": "^2.4.1"
     }
 }

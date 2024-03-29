@@ -8,11 +8,30 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v3
+              name: Install pnpm
               with:
-                  node-version: '20.x'
-                  registry-url: 'https://registry.npmjs.org'
-            - run: pnpm publish
+                  version: 8
+                  run_install: false
+
+            - name: Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                  cache: pnpm
+                  registry-url: https://registry.npmjs.org
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build
+              run: pnpm build
+
+            - name: Publish 🚀
+              shell: bash
+              # Must have --no-git-checks enabled due to pnpm not supporting publish from git tags. https://github.com/pnpm/pnpm/issues/5894
+              run: pnpm publish --no-git-checks
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
