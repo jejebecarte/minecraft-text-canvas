@@ -1,8 +1,9 @@
-# Minecraft Chat Generator
+# Minecraft Chat Canvas
 
-This project is a simple TypeScript application to generate realistic Minecraft chat images from a given input text. The application follows basic Minecraft text markup, including coloured and bold text, and outputs the rendered result as a `.png` image.
+A simple TypeScript application to generate Minecraft chat images from a given input text. The application follows basic Minecraft text markup, including coloured and bold text, and outputs the rendered result as a PNG image buffer.
 
-<details><summary>Supported Modifiers</summary>
+<details>
+<summary>Supported Modifiers</summary>
 
 | Name         | Character |
 | ------------ | --------- |
