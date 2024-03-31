@@ -2,11 +2,12 @@ import { createCanvas, registerFont } from 'canvas';
 import { FONT_SIZE } from './constants';
 import setCanvasDimensions from './lib/setCanvasDimensions';
 import renderText from './lib/renderText';
+import TextCanvasResult from './lib/TextCanvasResult';
 
 registerFont('src/fonts/minecraft.otf', { family: 'Minecraft' });
 const font = `${FONT_SIZE}px Minecraft`;
 
-export default function getPNGBuffer(text: string): Buffer {
+export default function render(text: string): TextCanvasResult {
     const canvas = createCanvas(0, 0);
     const ctx = canvas.getContext('2d');
 
@@ -18,5 +19,5 @@ export default function getPNGBuffer(text: string): Buffer {
     ctx.font = font;
     renderText(text, ctx);
 
-    return canvas.toBuffer();
+    return new TextCanvasResult(canvas);
 }
