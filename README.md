@@ -1,9 +1,37 @@
-# Minecraft Chat Canvas
+<h1 align="center">Minecraft Text Canvas</h1>
+<p align="center">A simple TypeScript application to generate images of Minecraft text using markup.</p>
+<div align="center">
+    <a href="https://www.npmjs.com/package/minecraft-text-canvas" target="_blank" rel="noreferrer">
+        <img alt="Monthly downloads" src="https://img.shields.io/npm/dm/minecraft-text-canvas.svg?color=blue">
+    </a>
+    <a href="https://www.npmjs.com/package/minecraft-text-canvas" target="_blank" rel="noreferrer">
+        <img alt="npm version" src="https://img.shields.io/npm/v/minecraft-text-canvas.svg">
+    </a>
+    <a href="https://github.com/Jejebecarte/minecraft-text-canvas/blob/master/LICENSE" target="_blank" rel="noreferrer">
+        <img alt="License: MIT" src="https://img.shields.io/npm/l/minecraft-text-canvas?color=green" />
+    </a>
+</div>
 
-A simple TypeScript application to generate Minecraft chat images from a given input text. The application follows basic Minecraft text markup, including coloured and bold text, and outputs the rendered result as a PNG image buffer.
+-   [Installation](#installation)
+-   [Supported Markup](#supported-markup)
+-   [Usage](#usage)
+-   [Acknowledgements](#acknowledgements)
+-   [License](#license)
+
+## Installation
+
+This package requires [Node.js](https://nodejs.org/) `=>10.20.0`.
+
+Install via the package manager of your choice:
+
+```bash
+$ npm install minecraft-text-canvas
+```
+
+## Supported Markup
 
 <details>
-<summary>Supported Modifiers</summary>
+<summary>Click to view</summary>
 
 | Name         | Character |
 | ------------ | --------- |
@@ -25,8 +53,22 @@ A simple TypeScript application to generate Minecraft chat images from a given i
 | Black        | &0        |
 | Bold         | &l        |
 | Reset        | &r        |
+| Newline      | \n        |
 
 </details>
+
+## Usage
+
+The following example simply renders an example input text with some basic markup:
+
+```javascript
+const render = require('minecraft-text-canvas');
+const result = render('&cExample &r&btext');
+```
+
+The `result` variable is of type `TextCanvasResult`, which allows the image to be retrieved as a PNG/JPEG [`Buffer`](https://nodejs.org/api/buffer.html) or a PNG/JPEG [`Stream`](https://nodejs.org/api/stream.html#readable-streams).
+
+For usage examples pertaining to `Stream`s, see the [node-canvas](https://github.com/Automattic/node-canvas) documentation on creating [PNG](https://github.com/Automattic/node-canvas?tab=readme-ov-file#canvascreatepngstream) and [JPEG streams](https://github.com/Automattic/node-canvas?tab=readme-ov-file#canvascreatejpegstream).
 
 ## Acknowledgements
 

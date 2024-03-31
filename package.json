@@ -7,6 +7,23 @@
     "exports": {
         ".": "./dist/index.js"
     },
+    "keywords": [
+        "minecraft",
+        "minecraft text",
+        "image",
+        "image processing",
+        "png",
+        "jpeg",
+        "jpg"
+    ],
+    "homepage": "https://github.com/Jejebecarte/minecraft-text-canvas#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Jejebecarte/minecraft-text-canvas.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Jejebecarte/minecraft-text-canvas/issues"
+    },
     "scripts": {
         "build": "tsc && pnpm run copy-files",
         "clean": "rm -r dist/",
@@ -16,24 +33,16 @@
         "lint": "eslint \"src/**\"",
         "lint:fix": "pnpm run lint --fix"
     },
-    "homepage": "https://github.com/Jejebecarte/minecraft-text-canvas#readme",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Jejebecarte/minecraft-text-canvas.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Jejebecarte/minecraft-text-canvas/issues"
+    "dependencies": {
+        "canvas": "^2.9.3"
     },
     "devDependencies": {
         "@jejebecarte/eslint-config": "^1.0.5",
         "@types/node": "^20.11.30",
         "@typescript-eslint/eslint-plugin": "^5.30.6",
         "@typescript-eslint/parser": "^5.30.6",
+        "copyfiles": "^2.4.1",
         "eslint": "^8.18.0",
         "typescript": "^4.5.5"
-    },
-    "dependencies": {
-        "canvas": "^2.9.3",
-        "copyfiles": "^2.4.1"
     }
 }
