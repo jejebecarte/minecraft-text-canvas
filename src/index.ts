@@ -1,10 +1,11 @@
+import path from 'path';
 import { createCanvas, registerFont } from 'canvas';
 import { FONT_SIZE } from './constants';
 import setCanvasDimensions from './lib/setCanvasDimensions';
 import renderText from './lib/renderText';
 import TextCanvasResult from './lib/TextCanvasResult';
 
-registerFont('src/fonts/minecraft.otf', { family: 'Minecraft' });
+registerFont(path.join(__dirname, '/fonts/minecraft.otf'), { family: 'Minecraft' });
 const font = `${FONT_SIZE}px Minecraft`;
 
 export default function render(text: string): TextCanvasResult {

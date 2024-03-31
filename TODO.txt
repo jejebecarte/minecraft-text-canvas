@@ -1,3 +1,2 @@
-Add JSDocs
 Escaping markup
 Full markup support

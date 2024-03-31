@@ -34,7 +34,7 @@
         "lint:fix": "pnpm run lint --fix"
     },
     "dependencies": {
-        "canvas": "^2.9.3"
+        "canvas": "2.10.2"
     },
     "devDependencies": {
         "@jejebecarte/eslint-config": "^1.0.5",
