@@ -1,6 +1,7 @@
 export const FONT_SIZE = 8;
 export const FONT_OFFSET = 1;
 export const SUPPORTED_MODIFIERS_GLOBAL = /&(?:0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|l|r)/g;
+export const NEWLINE_REGEX = /\r?\n/;
 export const TEXT_COLORS = {
     '0': 0x000,
     '1': 0x00a,
