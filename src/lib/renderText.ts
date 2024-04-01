@@ -2,7 +2,7 @@ import { CanvasRenderingContext2D } from 'canvas';
 import {
     FONT_SIZE,
     FONT_OFFSET,
-    SUPPORTED_MODIFIERS,
+    SUPPORTED_MODIFIERS_GLOBAL,
     TEXT_COLORS,
     TEXT_SHADOW_COLORS,
 } from '../constants';
@@ -19,7 +19,11 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
         const nextChar = text[i + 1];
 
         // Check if this character and the next one are a supported modifier
-        if (char === '&' && SUPPORTED_MODIFIERS.test(char + nextChar)) {
+        // WARNING: JavaScript has inconsistent RegEx test behaviour with the global flag enabled -
+        // On subsequent test() calls, it begins searching from the index of the previous match.
+        // For this reason, we have to create a new, non-global RegEx to test our expression.
+        // I hate JS.
+        if (char === '&' && new RegExp(SUPPORTED_MODIFIERS_GLOBAL.source).test(char + nextChar)) {
             if (nextChar && nextChar in TEXT_COLORS) {
                 currentColor = TEXT_COLORS[nextChar as HexDigit];
                 currentShadowColor = TEXT_SHADOW_COLORS[nextChar as HexDigit];
@@ -33,7 +37,7 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
                 continue;
             }
 
-            // Skip the next character as it is modifying
+            // Skip the next character as it is part of a modifying sequence
             i += 1;
         } else if (char === '\n') {
             cursorX = 0;

@@ -62,7 +62,7 @@ $ npm install minecraft-text-canvas
 The following example simply renders an example input text with some basic markup:
 
 ```javascript
-const render = require('minecraft-text-canvas');
+import render from 'minecraft-text-canvas';
 const result = render('&cExample &r&btext');
 ```
 

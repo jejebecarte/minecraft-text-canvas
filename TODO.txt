@@ -1,2 +1,2 @@
+Support underline, strikethrough, italic
 Escaping markup
-Full markup support

@@ -1,5 +1,5 @@
 import { CanvasRenderingContext2D } from 'canvas';
-import { FONT_OFFSET, SUPPORTED_MODIFIERS } from '../constants';
+import { FONT_OFFSET, SUPPORTED_MODIFIERS_GLOBAL } from '../constants';
 
 const BOLD_REGEX = /&l(.*?)(?:&r|$)/g;
 
@@ -10,7 +10,7 @@ export default function getFormattedWidth(unformattedText: string, ctx: CanvasRe
     // Remove all modifiers and split by line break to calculate text width
     const wrappedText = unformattedText.split(/\r\n|\r|\n/g);
     wrappedText.forEach((line) => {
-        let lineWidth = ctx.measureText(line.replaceAll(SUPPORTED_MODIFIERS, '')).width;
+        let lineWidth = ctx.measureText(line.replaceAll(SUPPORTED_MODIFIERS_GLOBAL, '')).width;
 
         // If bold carries over from previous line, prefix the line with '&l' so it fits the regex
         const boldSubstrings = isBold ? `&l${line}`.match(BOLD_REGEX) : line.match(BOLD_REGEX);
@@ -20,7 +20,7 @@ export default function getFormattedWidth(unformattedText: string, ctx: CanvasRe
 
             boldSubstrings.forEach((subStr) => {
                 // Remove all modifiers in the text
-                const subStrRemovedModifiers = subStr.replaceAll(SUPPORTED_MODIFIERS, '');
+                const subStrRemovedModifiers = subStr.replaceAll(SUPPORTED_MODIFIERS_GLOBAL, '');
                 lineWidth += subStrRemovedModifiers.length * FONT_OFFSET;
             });
         }
