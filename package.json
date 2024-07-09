@@ -27,7 +27,8 @@
     "scripts": {
         "build": "tsc && pnpm run copy-files",
         "clean": "rm -r dist/",
-        "copy-files": "copyfiles -u 1 src/**/*.otf dist/",
+        "copy-files": "copyfiles -u 1 src/fonts/**/* dist/",
+        "create-bitmap-glyphs": "node scripts/create-bitmap-glyphs.js",
         "dev": "ts-node-dev --respawn --transpile-only --poll src/index.ts",
         "format": "prettier --write \"src/**\"",
         "lint": "eslint \"src/**\"",
@@ -44,6 +45,7 @@
         "copyfiles": "^2.4.1",
         "eslint": "^8.18.0",
         "node-gyp": "^10.1.0",
+        "ts-node-dev": "^2.0.0",
         "typescript": "^4.5.5"
     }
 }
