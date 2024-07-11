@@ -1,10 +1,10 @@
 # Minecraft font bitmaps
 
-The `create-bitmap-glyphs` script is a utility designed to slice Minecraft's original font sprite sheets into individual glyph bitmaps ready to be imported into [FontForge](https://fontforge.org/en-US/).
+The `create-glyphs` script is a utility designed to slice Minecraft's original font sprite sheets into individual glyph bitmaps ready to be imported into [FontForge](https://fontforge.org/en-US/).
 
-This script helps create a version of the Minecraft font with support beyond the limited extended ASCII character set provided by other distributions of the font. Further, other versions of the font available online only supplied a vectorised version of the italic font, instead of a properly rasterised edition that is required for this application.
+This script helps create a version of the Minecraft font with support beyond the limited extended ASCII character set provided by other distributions. Further, other versions of the font available online only supply a vectorised version of the italic font, instead of a properly rasterised edition that is required for this application.
 
-Minecraft only stores the regular version of its font in its assets, utilising the following algorithms to create bold and italicised text on the fly:
+Minecraft only stores the regular version of its font in its assets, utilising the following algorithms to create bold and italic text on the fly:
 
 -   `Bold:` The character is drawn a second time over the original, this time one pixel to the right.
 
@@ -12,18 +12,24 @@ Minecraft only stores the regular version of its font in its assets, utilising t
 
 ## Usage
 
-1. Generate the glyph files, outputted as `.png`s in `scripts/bitmap/dist`.
+1. Generate the glyph files, outputted as `.png`s in `scripts/font/dist`.
 
 ```bash
-$ pnpm run create-bitmap-glyphs
+$ pnpm run create-glyphs
 ```
 
-2. Create a new font in FontForge and add an 8 pixel bitmap strike: `Ctrl/cmd + A > Element > Bitmap Strikes Available > Pixel Sizes`.
+2. Create a new font in FontForge and set glyph metrics under `Element > Font Info > General`:
+
+-   Ascent: `7`
+-   Descent: `1`
+-   Underline Height: `0`
 
 > [!NOTE]
-> While the `nonlatin_european` and `ascii` character sets have a resolution of `8x8`, characters in the `accented` set are `9x12`. This may interfere with FontForge's bitmap strike settings but could most likely be worked around by creating a new strike.
+> While the `nonlatin_european` and `ascii` character sets have a resolution of `8x8`, characters in the `accented` set are `9x12`. This interferes with the ascent and descent settings and so characters in the `accented` sprite sheet haven't been included in the final font.
 
-3. Following [these](https://fontforge.org/docs/techref/autotrace.html) instructions, import the glyphs and autotrace the resulting background regions to generate the correct foreground glyphs.
+3. Replace the `directory` file path in `scripts/load-glyphs.py` with the absolute path to the `strike-8` directory. Paste the edited script into the text area under `File > Execute Script` and click `OK`. This may take some time to execute.
 
-> [!WARNING]
-> This mass-import feature is currently broken and imports must be done individually. For this reason it is recommended to only add the extended ASCII character set until the feature is fixed. When this happens, italic font support will be added to this script to enable creating a correctly rasterised Minecraft font.
+4. Generate the font using `File > Generate Fonts...`:
+
+-   Format: `OpenType (CFF)`
+-   Uncheck `Validate Before Saving`
