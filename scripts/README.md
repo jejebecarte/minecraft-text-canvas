@@ -8,12 +8,12 @@ Minecraft only stores the regular version of its font in its assets, utilising t
 
 -   `Bold:` The character is drawn a second time over the original, this time one pixel to the right.
 
--   `Italic:` The character's resolution is tripled (e.g. a character that is normally `12x9` becomes `36x27`). The bottom row of pixels stay fixed, while every set of 4 rows above (and the remaining 3 at the top) are moved 1 pixel more to the right than the set directly below them.
+-   `Italic:` The character's resolution is quadrupled (e.g. a character that is normally `9x12` becomes `36x48`). The bottom 2 rows of pixels stay fixed, while every set of 4 rows above (and the remaining 2 at the top) are moved 1 pixel more to the right than the set directly below them.
 
 > [!NOTE]
-> Sometimes Minecraft, at least on version 1.16.5 renders italic text inconsistently. Given all other versions of the game render text at [triple the resolution](/scripts/font/images/correct-italic.png), the [quadruple resolution version](/scripts/font/images/incorrect-italic.png) was deemed to be incorrect and wasn't included in this version of the italic font.
+> Minecraft version 1.16.5 (and possibly other versions) render italic text inconsistently. The [quadruple resolution version](/scripts/images/correct-italic.png) was deemed correct and thus the [triple resolution version](/scripts/images/incorrect-italic.png) has not been included in the italic font.
 >
-> Further, the game seems to tuck characters into preceding ones so each vertical block is `3` pixels apart. This hasn't been included in this font either but could likely be calculated for each individual glyph by setting its width according to its height.
+> Further, the game seems to [tuck characters into preceding ones](/scripts/images/italic-tucking.png). This font does not include this feature.
 
 ## Usage
 
@@ -23,9 +23,11 @@ Minecraft only stores the regular version of its font in its assets, utilising t
 $ pnpm run create-glyphs
 ```
 
-2. Replace the `directory` file path in `scripts/load-glyphs.py` with the absolute path to the `scripts/font/dist` directory. Create and open a new font in FontForge. Paste the edited script into the text area under `File > Execute Script` and click `OK`. This may take some time to execute.
+2. Replace the `directory` file path in `scripts/load-glyphs.py` with the absolute path to the `scripts/font/dist` directory.
 
-3. Generate each font using `File > Generate Fonts...`:
+3. Create and open a new font in FontForge. Paste the edited script into the text area under `File > Execute Script` and click `OK`. This may take some time to execute.
+
+4. Generate each font using `File > Generate Fonts...`:
 
 -   Format: `OpenType (CFF)`
 -   Uncheck `Validate Before Saving`

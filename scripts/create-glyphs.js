@@ -3,9 +3,7 @@ const path = require('path');
 const { createCanvas, Image } = require('canvas');
 const charMap = require('./font/mapping/include/default.json');
 
-// Image scaling is required for FontForge's autotrace to correctly identify edges
-const IMAGE_SCALING = 8;
-const ITALIC_SCALING = 3;
+const ITALIC_SCALING = 4;
 const sets = [
     {
         mapping: 0,
@@ -35,6 +33,8 @@ if (!fs.existsSync(regularOutDir) || !fs.existsSync(italicOutDir)) {
 }
 
 sets.forEach(({ mapping, imagePath, sideLengthX, sideLengthY }) => {
+    console.info(`Creating glyphs for ${imagePath}...`);
+
     const image = new Image();
     image.onload = () => {
         for (let x = 0; x < image.width / sideLengthX; x++) {
@@ -55,8 +55,8 @@ sets.forEach(({ mapping, imagePath, sideLengthX, sideLengthY }) => {
 
                 // Each type has to be wrapped in a function or the output won't be saved properly
                 const getRegularCanvas = () => {
+                    const IMAGE_SCALING = 8;
                     const canvas = createCanvas(9 * IMAGE_SCALING, 12 * IMAGE_SCALING);
-
                     const ctx = canvas.getContext('2d');
 
                     // Create the regular glyph
@@ -79,6 +79,7 @@ sets.forEach(({ mapping, imagePath, sideLengthX, sideLengthY }) => {
                 };
 
                 const getItalicCanvas = () => {
+                    const IMAGE_SCALING = 6;
                     const canvas = createCanvas(
                         (9 * ITALIC_SCALING + sideLengthY) * IMAGE_SCALING,
                         12 * ITALIC_SCALING * IMAGE_SCALING
@@ -86,8 +87,7 @@ sets.forEach(({ mapping, imagePath, sideLengthX, sideLengthY }) => {
 
                     const ctx = canvas.getContext('2d');
 
-                    // Create the italic glyph. To keep italics looking even across glyphs with different dimensions, we put them all on a background of the same size and apply the algorithm from there.
-                    // BUG: At large scaling factors this creates artifacts - https://github.com/Automattic/node-canvas/issues/2397
+                    // Create the italic glyph
                     ctx.imageSmoothingEnabled = false;
                     ctx.drawImage(
                         image,
@@ -101,20 +101,17 @@ sets.forEach(({ mapping, imagePath, sideLengthX, sideLengthY }) => {
                         sideLengthY * ITALIC_SCALING * IMAGE_SCALING
                     );
 
-                    const blockLevels = [31, 27, 23, 19, 15, 11, 7, 3, 0];
+                    const blockLevels = [46, 42, 38, 34, 30, 26, 22, 18, 14, 10, 6, 2, 0];
                     blockLevels.forEach((blockLevel, i) => {
+                        const cursorY = blockLevel * IMAGE_SCALING;
                         const blockHeight =
-                            i === blockLevels.length - 1 ? 3 * IMAGE_SCALING : 4 * IMAGE_SCALING;
+                            i === 0 || i === blockLevels.length - 1
+                                ? 2 * IMAGE_SCALING
+                                : 4 * IMAGE_SCALING;
 
-                        const data = ctx.getImageData(
-                            0,
-                            blockLevel * IMAGE_SCALING,
-                            canvas.width,
-                            blockHeight
-                        );
-
-                        ctx.fillRect(0, blockLevel * IMAGE_SCALING, canvas.width, blockHeight);
-                        ctx.putImageData(data, (i + 1) * IMAGE_SCALING, blockLevel * IMAGE_SCALING);
+                        const data = ctx.getImageData(0, cursorY, canvas.width, blockHeight);
+                        ctx.fillRect(0, cursorY, canvas.width, blockHeight);
+                        ctx.putImageData(data, (i + 1) * IMAGE_SCALING, cursorY);
                     });
 
                     invertColors(ctx, canvas.width, canvas.height);
