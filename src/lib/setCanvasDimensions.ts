@@ -19,6 +19,7 @@ export default function setCanvasDimensions(text: string, ctx: CanvasRenderingCo
     // TODO: reuse the results from the bold and italic substring search in renderText() - draw text in chunks, not char by char
     lines.forEach((line) => {
         // Find the width of the line if no characters are bold or italic
+        // ? This appears to always be BOLD_SHADOW_OFFSET wider than the text really is
         ctx.font = FONT;
         let width = ctx.measureText(line.replaceAll(SUPPORTED_FORMAT_CODES, '')).width;
 
@@ -36,7 +37,12 @@ export default function setCanvasDimensions(text: string, ctx: CanvasRenderingCo
             const normal = ctx.measureText(group.replaceAll(SUPPORTED_FORMAT_CODES, '')).width;
 
             ctx.font = ITALIC_FONT;
-            const italic = ctx.measureText(group.replaceAll(SUPPORTED_FORMAT_CODES, '')).width;
+            let italic = ctx.measureText(group.replaceAll(SUPPORTED_FORMAT_CODES, '')).width;
+
+            // To account for regular width naturally being BOLD_SHADOW_OFFSET wider than it really is, do the same for italic text at the end of the line
+            if (!match[0].endsWith('&r')) {
+                italic += BOLD_SHADOW_OFFSET;
+            }
 
             // Add the difference between the normal width and italic width
             width += italic - normal;
