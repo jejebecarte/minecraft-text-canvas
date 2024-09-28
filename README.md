@@ -52,6 +52,7 @@ $ npm install minecraft-text-canvas
 | Dark Gray    | &8        |
 | Black        | &0        |
 | Bold         | &l        |
+| Italic       | &o        |
 | Reset        | &r        |
 | Newline      | \n        |
 

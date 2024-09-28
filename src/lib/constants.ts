@@ -1,8 +1,10 @@
-export const FONT_SIZE = 32;
-export const FONT_OFFSET = Math.round(FONT_SIZE / 8);
-export const SUPPORTED_MODIFIERS_GLOBAL = /&(?:0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|l|r)/g;
-export const NEWLINE_REGEX = /\r?\n/;
-export const TEXT_COLORS: { [key in HexDigit]: number } = {
+export const FONT_SIZE = 48;
+export const BOLD_SHADOW_OFFSET = 4;
+export const FONT = `${FONT_SIZE}px Minecraft`;
+export const ITALIC_FONT = `${FONT_SIZE}px Minecraft Italic`;
+export const SUPPORTED_FORMAT_CODES = /&(?:0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|l|o|r)/g;
+export const NEWLINE_REGEX = /$/gm;
+export const TEXT_COLORS: Record<HexDigit, number> = {
     '0': 0x000,
     '1': 0x00a,
     '2': 0x0a0,
@@ -21,7 +23,7 @@ export const TEXT_COLORS: { [key in HexDigit]: number } = {
     f: 0xfff,
 } as const;
 
-export const TEXT_SHADOW_COLORS: { [key in HexDigit]: number } = {
+export const TEXT_SHADOW_COLORS: Record<HexDigit, number> = {
     '0': 0x000,
     '1': 0x00002b,
     '2': 0x002b00,

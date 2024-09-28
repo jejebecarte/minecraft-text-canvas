@@ -1,4 +1,4 @@
-# Minecraft font bitmaps
+# Minecraft fonts
 
 The `create-glyphs` script is a utility designed to slice Minecraft's original font sprite sheets into individual glyph bitmaps ready to be imported into [FontForge](https://fontforge.org/en-US/).
 
@@ -14,6 +14,8 @@ Minecraft only stores the regular version of its font in its assets, utilising t
 > Minecraft version 1.16.5 (and possibly other versions) render italic text inconsistently. The [quadruple resolution version](/scripts/images/correct-italic.png) was deemed correct and thus the [triple resolution version](/scripts/images/incorrect-italic.png) has not been included in the italic font.
 >
 > Further, the game seems to [tuck characters into preceding ones](/scripts/images/italic-tucking.png). This font does not include this feature.
+
+Due to [this](https://github.com/Automattic/node-canvas/issues/1452) node-canvas issue, the italic and regular fonts must have different families, else styles can't be applied.
 
 ## Usage
 
