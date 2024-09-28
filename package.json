@@ -1,6 +1,6 @@
 {
     "name": "minecraft-text-canvas",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "description": "Generate images of Minecraft text using markup.",
     "license": "MIT",
     "main": "dist/index.js",
@@ -27,7 +27,8 @@
     "scripts": {
         "build": "tsc && pnpm run copy-files",
         "clean": "rm -r dist/",
-        "copy-files": "copyfiles -u 1 src/**/*.otf dist/",
+        "copy-files": "copyfiles -u 1 src/fonts/**/* dist/",
+        "create-glyphs": "node scripts/create-glyphs.js",
         "dev": "ts-node-dev --respawn --transpile-only --poll src/index.ts",
         "format": "prettier --write \"src/**\"",
         "lint": "eslint \"src/**\"",
@@ -37,13 +38,15 @@
         "canvas": "2.10.2"
     },
     "devDependencies": {
-        "@jejebecarte/eslint-config": "^1.0.5",
-        "@types/node": "^20.11.30",
-        "@typescript-eslint/eslint-plugin": "^5.30.6",
-        "@typescript-eslint/parser": "^5.30.6",
+        "@jejebecarte/eslint-config": "^1.0.6",
+        "@types/node": "^22.7.4",
+        "@typescript-eslint/eslint-plugin": "^8.7.0",
+        "@typescript-eslint/parser": "^8.7.0",
         "copyfiles": "^2.4.1",
-        "eslint": "^8.18.0",
-        "node-gyp": "^10.1.0",
-        "typescript": "^4.5.5"
+        "eslint": "^8.2.0",
+        "node-gyp": "^10.2.0",
+        "prettier": "^2.8.7",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.6.2"
     }
 }
