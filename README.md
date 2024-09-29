@@ -20,12 +20,14 @@
 
 ## Installation
 
-This package requires [Node.js](https://nodejs.org/) `=>10.20.0`.
+This package requires [Node.js](https://nodejs.org/) `=>18.12.0`.
 
 Install via the package manager of your choice:
 
 ```bash
 $ npm install minecraft-text-canvas
+$ yarn add minecraft-text-canvas
+$ pnpm add minecraft-text-canvas
 ```
 
 ## Supported Markup
