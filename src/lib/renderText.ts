@@ -3,11 +3,10 @@ import {
     FONT_SIZE,
     BOLD_SHADOW_OFFSET,
     SUPPORTED_FORMAT_CODES,
-    TEXT_COLORS,
-    TEXT_SHADOW_COLORS,
     NEWLINE_REGEX,
     FONT,
     ITALIC_FONT,
+    CHAT_CODES,
 } from './constants';
 
 const getFillStyle = (color: number) => `#${color.toString(16)}`;
@@ -16,8 +15,8 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
     let cursorY = FONT_SIZE - BOLD_SHADOW_OFFSET;
 
     text.split(NEWLINE_REGEX).forEach((line) => {
-        let textFill = getFillStyle(TEXT_COLORS.f);
-        let shadowFill = getFillStyle(TEXT_SHADOW_COLORS.f);
+        let textFill = getFillStyle(CHAT_CODES.WHITE.color);
+        let shadowFill = getFillStyle(CHAT_CODES.WHITE.shadowColor);
         let isBold = false;
         let isUnderlined = false;
         let cursorX = 0;
@@ -29,20 +28,24 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 
             // Check if this character and the next are a formatting code
             if (nextChar && char === '&' && `${char}${nextChar}`.match(SUPPORTED_FORMAT_CODES)) {
-                if (nextChar in TEXT_COLORS) {
-                    textFill = getFillStyle(TEXT_COLORS[nextChar as HexDigit]);
-                    shadowFill = getFillStyle(TEXT_SHADOW_COLORS[nextChar as HexDigit]);
+                if ('0123456789abcdef'.includes(nextChar)) {
+                    const code = Object.values(CHAT_CODES).find(
+                        (color) => color.char === nextChar
+                    ) as ColorCode;
+
+                    textFill = getFillStyle(code.color);
+                    shadowFill = getFillStyle(code.shadowColor);
                 } else if (nextChar === 'r') {
-                    textFill = getFillStyle(TEXT_COLORS.f);
-                    shadowFill = getFillStyle(TEXT_SHADOW_COLORS.f);
+                    textFill = getFillStyle(CHAT_CODES.WHITE.color);
+                    shadowFill = getFillStyle(CHAT_CODES.WHITE.shadowColor);
                     isBold = false;
                     isUnderlined = false;
                     ctx.font = FONT;
-                } else if (nextChar === 'l') {
+                } else if (nextChar === CHAT_CODES.BOLD.char) {
                     isBold = true;
-                } else if (nextChar === 'o') {
+                } else if (nextChar === CHAT_CODES.ITALIC.char) {
                     ctx.font = ITALIC_FONT;
-                } else if (nextChar === 'n') {
+                } else if (nextChar === CHAT_CODES.UNDERLINE.char) {
                     isUnderlined = true;
                 } else {
                     continue;

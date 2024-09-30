@@ -3,4 +3,3 @@ Escaping markup
 Text wrapping (old chat width, new chat width, maximum JPEG size)
 Backgrounds (mattdoes.dev fake chat generator)
 italic kerning
-color code enum
