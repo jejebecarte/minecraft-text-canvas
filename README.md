@@ -55,6 +55,7 @@ $ pnpm add minecraft-text-canvas
 | Black        | &0        |
 | Bold         | &l        |
 | Italic       | &o        |
+| Underline    | &n        |
 | Reset        | &r        |
 | Newline      | \n        |
 
