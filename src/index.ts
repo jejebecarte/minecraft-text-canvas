@@ -1,8 +1,8 @@
 import path from 'path';
 import { createCanvas, registerFont } from 'canvas';
-import setCanvasDimensions from './lib/setCanvasDimensions';
-import renderText from './lib/renderText';
-import TextCanvasResult from './lib/TextCanvasResult';
+import setCanvasDimensions from './lib/set-canvas-dimensions';
+import renderText from './lib/render-text';
+import TextCanvasResult from './lib/text-canvas-result';
 
 // Fonts must have different families, else styles can't be applied - https://github.com/Automattic/node-canvas/issues/1452
 const fontFile = (fileName: string) => path.join(__dirname, 'fonts/', fileName);
