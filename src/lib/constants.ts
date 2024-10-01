@@ -2,7 +2,7 @@ export const FONT_SIZE = 48;
 export const BOLD_SHADOW_OFFSET = 4;
 export const FONT = `${FONT_SIZE}px Minecraft`;
 export const ITALIC_FONT = `${FONT_SIZE}px Minecraft Italic`;
-export const SUPPORTED_FORMAT_CODES = /&(?:0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|l|o|n|r)/g;
+export const SUPPORTED_FORMAT_CODES = /&(?:0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|l|m|n|o|r)/g;
 export const NEWLINE_REGEX = /$/gm;
 export const CHAT_CODES = Object.freeze({
     BLACK: {
@@ -104,6 +104,10 @@ export const CHAT_CODES = Object.freeze({
     BOLD: {
         char: 'l',
         code: '&l',
+    },
+    STRIKETHROUGH: {
+        char: 'm',
+        code: '&m',
     },
     UNDERLINE: {
         char: 'n',

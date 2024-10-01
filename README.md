@@ -35,35 +35,36 @@ $ pnpm add minecraft-text-canvas
 <details>
 <summary>Click to view</summary>
 
-| Name         | Character |
-| ------------ | --------- |
-| Dark Red     | &4        |
-| Red          | &c        |
-| Gold         | &6        |
-| Yellow       | &e        |
-| Dark Green   | &2        |
-| Green        | &a        |
-| Aqua         | &b        |
-| Dark Aqua    | &3        |
-| Dark Blue    | &1        |
-| Blue         | &9        |
-| Light Purple | &d        |
-| Dark Purple  | &5        |
-| White        | &f        |
-| Gray         | &7        |
-| Dark Gray    | &8        |
-| Black        | &0        |
-| Bold         | &l        |
-| Italic       | &o        |
-| Underline    | &n        |
-| Reset        | &r        |
-| Newline      | \n        |
+| Name          | Code |
+| ------------- | ---- |
+| Black         | &0   |
+| Dark Blue     | &1   |
+| Dark Green    | &2   |
+| Dark Aqua     | &3   |
+| Dark Red      | &4   |
+| Dark Purple   | &5   |
+| Gold          | &6   |
+| Gray          | &7   |
+| Dark Gray     | &8   |
+| Blue          | &9   |
+| Green         | &a   |
+| Aqua          | &b   |
+| Red           | &c   |
+| Light Purple  | &d   |
+| Yellow        | &e   |
+| White         | &f   |
+| Bold          | &l   |
+| Strikethrough | &m   |
+| Underline     | &n   |
+| Italic        | &o   |
+| Reset         | &r   |
+| Newline       | \n   |
 
 </details>
 
 ## Usage
 
-The following example simply renders an example input text with some basic markup:
+The following example renders a sample input text with some basic markup:
 
 ```javascript
 import render, { CHAT_CODES } from 'minecraft-text-canvas';
