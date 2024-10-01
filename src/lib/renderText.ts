@@ -18,6 +18,7 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
         let textFill = getFillStyle(CHAT_CODES.WHITE.color);
         let shadowFill = getFillStyle(CHAT_CODES.WHITE.shadowColor);
         let isBold = false;
+        let isStruckThrough = false;
         let isUnderlined = false;
         let cursorX = 0;
         ctx.font = FONT;
@@ -35,20 +36,36 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
 
                     textFill = getFillStyle(code.color);
                     shadowFill = getFillStyle(code.shadowColor);
-                } else if (nextChar === 'r') {
-                    textFill = getFillStyle(CHAT_CODES.WHITE.color);
-                    shadowFill = getFillStyle(CHAT_CODES.WHITE.shadowColor);
-                    isBold = false;
-                    isUnderlined = false;
-                    ctx.font = FONT;
-                } else if (nextChar === CHAT_CODES.BOLD.char) {
-                    isBold = true;
-                } else if (nextChar === CHAT_CODES.ITALIC.char) {
-                    ctx.font = ITALIC_FONT;
-                } else if (nextChar === CHAT_CODES.UNDERLINE.char) {
-                    isUnderlined = true;
                 } else {
-                    continue;
+                    switch (nextChar) {
+                        case CHAT_CODES.RESET.char:
+                            textFill = getFillStyle(CHAT_CODES.WHITE.color);
+                            shadowFill = getFillStyle(CHAT_CODES.WHITE.shadowColor);
+                            isBold = false;
+                            isStruckThrough = false;
+                            isUnderlined = false;
+                            ctx.font = FONT;
+                            break;
+
+                        case CHAT_CODES.BOLD.char:
+                            isBold = true;
+                            break;
+
+                        case CHAT_CODES.STRIKETHROUGH.char:
+                            isStruckThrough = true;
+                            break;
+
+                        case CHAT_CODES.UNDERLINE.char:
+                            isUnderlined = true;
+                            break;
+
+                        case CHAT_CODES.ITALIC.char:
+                            ctx.font = ITALIC_FONT;
+                            break;
+
+                        default:
+                            continue;
+                    }
                 }
 
                 // Skip the next character as it is part of a modifying sequence
@@ -56,16 +73,36 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
             } else {
                 let { width } = ctx.measureText(char);
 
-                // Add space for underlined first char
-                if (isUnderlined && cursorX === 0) {
+                // Add space for first char with strikethrough/underline
+                if ((isStruckThrough || isUnderlined) && cursorX === 0) {
                     cursorX += BOLD_SHADOW_OFFSET;
                 }
 
                 const shadowX = cursorX + BOLD_SHADOW_OFFSET;
                 const shadowY = cursorY + BOLD_SHADOW_OFFSET;
-
-                // Draw shadow
                 ctx.fillStyle = shadowFill;
+
+                // Draw strikethrough shadow
+                if (isStruckThrough) {
+                    ctx.fillRect(
+                        cursorX,
+                        cursorY - 3 * BOLD_SHADOW_OFFSET,
+                        width + BOLD_SHADOW_OFFSET,
+                        BOLD_SHADOW_OFFSET
+                    );
+                }
+
+                // Draw underline shadow
+                if (isStruckThrough) {
+                    ctx.fillRect(
+                        cursorX,
+                        cursorY + 2 * BOLD_SHADOW_OFFSET,
+                        width + BOLD_SHADOW_OFFSET,
+                        BOLD_SHADOW_OFFSET
+                    );
+                }
+
+                // Draw text shadow
                 ctx.fillText(char, shadowX, shadowY);
                 if (isBold) {
                     ctx.fillText(char, shadowX + BOLD_SHADOW_OFFSET, shadowY);
@@ -83,17 +120,18 @@ export default function renderText(text: string, ctx: CanvasRenderingContext2D) 
                     width += BOLD_SHADOW_OFFSET;
                 }
 
-                // Draw underline
-                if (isUnderlined) {
-                    ctx.fillStyle = shadowFill;
+                // Draw strikethrough
+                if (isStruckThrough) {
                     ctx.fillRect(
-                        cursorX,
-                        cursorY + 2 * BOLD_SHADOW_OFFSET,
+                        cursorX - BOLD_SHADOW_OFFSET,
+                        cursorY - 4 * BOLD_SHADOW_OFFSET,
                         width + BOLD_SHADOW_OFFSET,
                         BOLD_SHADOW_OFFSET
                     );
+                }
 
-                    ctx.fillStyle = textFill;
+                // Draw underline
+                if (isUnderlined) {
                     ctx.fillRect(
                         cursorX - BOLD_SHADOW_OFFSET,
                         cursorY + BOLD_SHADOW_OFFSET,

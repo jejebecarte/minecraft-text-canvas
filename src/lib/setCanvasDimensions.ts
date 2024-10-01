@@ -26,6 +26,16 @@ export default function setCanvasDimensions(text: string, ctx: CanvasRenderingCo
             width += modifiersRemoved.length * BOLD_SHADOW_OFFSET;
         });
 
+        // Add extra width for a starting strikethrough/underline
+        if (line.match(/^&(?:n|m)/m)) {
+            width += BOLD_SHADOW_OFFSET;
+        }
+
+        // Add extra width for an ending strikethrough/underline or italic (italic font has no right bearing)
+        if (line.match(/&(?:n|m|o)(?:(?!&r).)*$/m)) {
+            width += BOLD_SHADOW_OFFSET;
+        }
+
         // Add the extra width for italic substrings
         [...line.matchAll(/&o(.*?)(?:&r|$)/gm)]?.forEach((match) => {
             const group = match[1]!;
@@ -36,24 +46,9 @@ export default function setCanvasDimensions(text: string, ctx: CanvasRenderingCo
             ctx.font = ITALIC_FONT;
             let italic = ctx.measureText(group.replaceAll(SUPPORTED_FORMAT_CODES, '')).width;
 
-            // If this is the end of the line, add the shadow width given italic text doesn't have a right bearing as the regular font does
-            if (!match[0].endsWith(CHAT_CODES.RESET.code)) {
-                italic += BOLD_SHADOW_OFFSET;
-            }
-
             // Add the difference between the normal width and italic width
             width += italic - normal;
         });
-
-        // Add extra width for a starting underline
-        if (line.match(/^&n/m)) {
-            width += BOLD_SHADOW_OFFSET;
-        }
-
-        // Add extra width for an ending underline shadow
-        if (line.match(/&n(?:(?!&r).)*$/m)) {
-            width += BOLD_SHADOW_OFFSET;
-        }
 
         // If this is the widest line, set the overall width accordingly
         if (widestLineWidth < width) {
