@@ -9,6 +9,8 @@ const fontFile = (fileName: string) => path.join(__dirname, 'fonts/', fileName);
 registerFont(fontFile('minecraft-regular.otf'), { family: 'Minecraft' });
 registerFont(fontFile('minecraft-italic.otf'), { family: 'Minecraft Italic' });
 
+export { CHAT_CODES } from './lib/constants';
+
 export default function render(text: string): TextCanvasResult {
     const canvas = createCanvas(0, 0);
     const ctx = canvas.getContext('2d');

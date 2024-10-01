@@ -66,8 +66,9 @@ $ pnpm add minecraft-text-canvas
 The following example simply renders an example input text with some basic markup:
 
 ```javascript
-import render from 'minecraft-text-canvas';
-const result = render('&cExample &r&btext');
+import render, { CHAT_CODES } from 'minecraft-text-canvas';
+
+const result = render(`${CHAT_CODES.RED.code}Example ${CHAT_CODES.AQUA.code}text`);
 ```
 
 The `result` variable is of type `TextCanvasResult`, which allows the image to be retrieved as a PNG/JPEG [`Buffer`](https://nodejs.org/api/buffer.html) or a PNG/JPEG [`Stream`](https://nodejs.org/api/stream.html#readable-streams).
