@@ -8,21 +8,21 @@
         ".": "./dist/index.js"
     },
     "keywords": [
-        "minecraft",
-        "minecraft text",
+        "font",
         "image",
         "image processing",
+        "minecraft",
         "png",
         "jpeg",
         "jpg"
     ],
-    "homepage": "https://github.com/Jejebecarte/minecraft-text-canvas#readme",
+    "homepage": "https://github.com/jejebecarte/minecraft-text-canvas#readme",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Jejebecarte/minecraft-text-canvas.git"
+        "url": "https://github.com/jejebecarte/minecraft-text-canvas.git"
     },
     "bugs": {
-        "url": "https://github.com/Jejebecarte/minecraft-text-canvas/issues"
+        "url": "https://github.com/jejebecarte/minecraft-text-canvas/issues"
     },
     "scripts": {
         "build": "tsc && pnpm run copy-files",
