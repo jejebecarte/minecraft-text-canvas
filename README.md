@@ -13,8 +13,8 @@
 </div>
 
 -   [Installation](#installation)
--   [Supported Markup](#supported-markup)
 -   [Usage](#usage)
+    -   [Supported markup](#supported-markup)
 -   [Acknowledgements](#acknowledgements)
 -   [License](#license)
 
@@ -30,7 +30,21 @@ $ yarn add minecraft-text-canvas
 $ pnpm add minecraft-text-canvas
 ```
 
-## Supported Markup
+## Usage
+
+The following example renders a sample input text with some basic markup:
+
+```javascript
+import render, { CHAT_CODES } from 'minecraft-text-canvas';
+
+const result = render(`${CHAT_CODES.RED.code}Example ${CHAT_CODES.AQUA.code}text`);
+```
+
+The `result` variable is of type `TextCanvasResult`, which allows the image to be retrieved as a PNG/JPEG [`Buffer`](https://nodejs.org/api/buffer.html) or a PNG/JPEG [`Stream`](https://nodejs.org/api/stream.html#readable-streams).
+
+For usage examples pertaining to `Stream`s, see the [node-canvas](https://github.com/Automattic/node-canvas) documentation on creating [PNG](https://github.com/Automattic/node-canvas?tab=readme-ov-file#canvascreatepngstream) and [JPEG streams](https://github.com/Automattic/node-canvas?tab=readme-ov-file#canvascreatejpegstream).
+
+### Supported markup
 
 <details>
 <summary>Click to view</summary>
@@ -62,23 +76,9 @@ $ pnpm add minecraft-text-canvas
 
 </details>
 
-## Usage
-
-The following example renders a sample input text with some basic markup:
-
-```javascript
-import render, { CHAT_CODES } from 'minecraft-text-canvas';
-
-const result = render(`${CHAT_CODES.RED.code}Example ${CHAT_CODES.AQUA.code}text`);
-```
-
-The `result` variable is of type `TextCanvasResult`, which allows the image to be retrieved as a PNG/JPEG [`Buffer`](https://nodejs.org/api/buffer.html) or a PNG/JPEG [`Stream`](https://nodejs.org/api/stream.html#readable-streams).
-
-For usage examples pertaining to `Stream`s, see the [node-canvas](https://github.com/Automattic/node-canvas) documentation on creating [PNG](https://github.com/Automattic/node-canvas?tab=readme-ov-file#canvascreatepngstream) and [JPEG streams](https://github.com/Automattic/node-canvas?tab=readme-ov-file#canvascreatejpegstream).
-
 ## Acknowledgements
 
-This repository is based off the [hypixel-fake-chat](https://github.com/mat-1/hypixel-fake-chat) generator.
+This repository was inspired by [hypixel-fake-chat](https://github.com/mat-1/hypixel-fake-chat).
 
 ## License
 
