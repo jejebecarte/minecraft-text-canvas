@@ -1,6 +1,6 @@
 {
     "name": "minecraft-text-canvas",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Generate images of Minecraft text using markup.",
     "license": "MIT",
     "main": "dist/index.js",

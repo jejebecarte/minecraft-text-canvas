@@ -1,3 +1,2 @@
-Text wrapping (old chat width, new chat width, maximum JPEG size)
-Backgrounds (mattdoes.dev fake chat generator)
+Backgrounds and chat text wrapping - (mattdoes.dev)
 italic kerning

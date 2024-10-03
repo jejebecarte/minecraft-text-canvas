@@ -7,9 +7,9 @@ import {
     ITALIC_FONT,
     FONT,
     CHAT_CODES,
+    MAX_CANVAS_SIZE,
 } from './constants';
 
-// TODO: Maximum JPEG size is 65_535 x 65_535
 export default function setCanvasDimensions(text: string, ctx: CanvasRenderingContext2D) {
     const lines = text.split(NEWLINE_REGEX);
     let widestLineWidth = 0;
@@ -62,6 +62,12 @@ export default function setCanvasDimensions(text: string, ctx: CanvasRenderingCo
         : 0;
 
     // Add the shadow size to the height so it isn't cut off
-    ctx.canvas.height = FONT_SIZE * lines.length + BOLD_SHADOW_OFFSET + underlineExtraheight;
+    const height = FONT_SIZE * lines.length + BOLD_SHADOW_OFFSET + underlineExtraheight;
+
+    if (widestLineWidth > MAX_CANVAS_SIZE || height > MAX_CANVAS_SIZE) {
+        throw new Error(`Reached maximum canvas size of ${MAX_CANVAS_SIZE}px`);
+    }
+
     ctx.canvas.width = widestLineWidth;
+    ctx.canvas.height = height;
 }
