@@ -1,3 +1,5 @@
+// Max canvas size is signed 16 bit int limit - https://github.com/Automattic/node-canvas/issues/875
+export const MAX_CANVAS_SIZE = 32_767;
 export const FONT_SIZE = 48;
 export const BOLD_SHADOW_OFFSET = 4;
 export const FONT = `${FONT_SIZE}px Minecraft`;
